@@ -80,3 +80,4 @@ Quit = IMG_Load("QUIT.png");
 
     pause=getchar();
     return 0;}
+    yasin
