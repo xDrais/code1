@@ -1,0 +1,83 @@
+#include <stdio.h>
+#include "SDL/SDL.h"
+#include "SDL/SDL_image.h"
+#include <SDL/SDL_mixer.h>
+int main(void){
+    SDL_Event event;
+    SDL_Surface *screen;
+    SDL_Surface *image;
+    SDL_Surface *Play;
+    SDL_Surface *Settings;
+    SDL_Surface *Quit;
+    SDL_Rect positionplay;
+    SDL_Rect positionsettings;
+    SDL_Rect positionquit;
+    SDL_Rect positionecran;
+
+    int done =1;
+    char pause;
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 1024)==-1)
+    {
+        printf("%s",Mix_GetError());
+    }
+    Mix_Music *music;
+    music = Mix_LoadMUS("Dire.mp3");
+    Mix_PlayMusic(music, -1);
+
+     screen=SDL_SetVideoMode (1280,720,32,SDL_HWSURFACE | SDL_DOUBLEBUF);
+    SDL_Flip(screen);
+
+
+if (screen==NULL){
+    printf ("unable to set video mode: %s\n",SDL_GetError());
+    return 1;
+    }
+       
+  
+    image=SDL_LoadBMP("flower.bmp");
+
+        if (image==NULL){
+        printf ("Unable to load Bitmap:%s\n",SDL_GetError());
+        return 1;}
+
+
+   SDL_BlitSurface(image,NULL,screen,NULL);
+    Play = IMG_Load("PLAY.png");
+        if (image==NULL){
+        printf ("Unable to load buttons:%s\n",SDL_GetError());
+        return 1;
+    }
+    positionplay.x = screen->w / 2 - Play->w / 2 ;
+    positionplay.y = 250 - Play->h / 2;
+    positionplay.w = Play->w;
+    positionplay.h = Play->h;
+    SDL_BlitSurface(Play,NULL,screen,&positionplay);
+    SDL_Flip(screen);
+
+    Settings = IMG_Load("SETTINGS.png");
+        if (image==NULL){
+        printf ("Unable to load buttons:%s\n",SDL_GetError());
+        return 1;
+    }
+    positionsettings.x = screen->w / 2 - Settings->w / 2 ;
+    positionsettings.y = 350 - Settings->h / 2;
+    positionsettings.w = Settings->w;
+    positionsettings.h = Settings->h;
+    SDL_BlitSurface(Settings,NULL,screen,&positionsettings);
+    SDL_Flip(screen);
+
+Quit = IMG_Load("QUIT.png");
+        if (image==NULL){
+        printf ("Unable to load buttons:%s\n",SDL_GetError());
+        return 1;
+    }
+    positionquit.x = screen->w / 2 - Quit->w / 2 ;
+    positionquit.y = 450 - Quit->h / 2;
+    positionquit.w = Quit->w;
+    positionquit.h = Quit->h;
+    SDL_BlitSurface(Quit,NULL,screen,&positionquit);
+    SDL_Flip(screen);
+
+    pause=getchar();
+    return 0;}
+yassin
